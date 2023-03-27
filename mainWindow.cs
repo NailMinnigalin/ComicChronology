@@ -11,12 +11,7 @@ namespace ComicChronology
 
         private void mainWindow_Load(object sender, EventArgs e)
         {
-            string dbName = "ComicChronologyDB.sqlite";
-            if (!File.Exists(dbName))
-            {
-                SQLiteConnection.CreateFile(dbName);   
-            }
-                
+            DBConnection.InitDB();
         }
     }
 }
