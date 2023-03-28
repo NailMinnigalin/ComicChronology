@@ -106,19 +106,11 @@ namespace ComicChronology
             using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
-                string sql = "SELECT name FROM sqlite_master WHERE type = 'table' AND name = @requiredTable;";
+                string sql = "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = @requiredTable LIMIT 1;";
                 using (SQLiteCommand command = new SQLiteCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@requiredTable", requiredTable);
-                    using (SQLiteDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            return true;
-                        }
-
-                        return false;
-                    }
+                    return command.ExecuteScalar() != null;
                 }
             }
         }
