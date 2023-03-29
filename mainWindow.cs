@@ -13,5 +13,10 @@ namespace ComicChronology
         {
             DBConnection.InitDB();
         }
+
+        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int newComicsId = DBConnection.CreateNewSeries();
+        }
     }
 }

@@ -18,7 +18,37 @@ namespace ComicChronology
 
             UpdateDB();
         }
+        
+        public static int CreateNewSeries()
+        {
+            string sql = "INSERT INTO Series (title, periodicityId) VALUES (@title, @periodId);";
+            ExecuteNonQuery(sql, new Dictionary<string, object> { { "@title", "New comics" }, { "@periodId", 1 } });
 
+            return GetSeriesMaxId();
+        }
+
+        private static int GetSeriesMaxId()
+        {
+            string sql = "SELECT MAX(id) FROM Series";
+            int maxId = 0;
+
+            using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand command = new SQLiteCommand(sql, connection))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read() && !reader.IsDBNull(0))
+                        {
+                            maxId = reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+
+            return maxId;
+        }
         private static void UpdateDB()
         {
             string[] requiredTables = new string[] { "PeriodicityType", "Series", "Issues" };
@@ -89,13 +119,20 @@ namespace ComicChronology
             ExecuteNonQuery(sql);
         }
 
-        private static void ExecuteNonQuery(string sql)
+        private static void ExecuteNonQuery(string sql, Dictionary<string, object> parameters = null)
         {
             using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
                 using (SQLiteCommand command = new SQLiteCommand(sql, connection))
                 {
+                    if (parameters != null)
+                    {
+                        foreach (KeyValuePair<string, object> param in parameters)
+                        {
+                            command.Parameters.AddWithValue(param.Key, param.Value);
+                        }
+                    }
                     command.ExecuteNonQuery();
                 }
             }
