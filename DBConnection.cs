@@ -9,8 +9,8 @@ namespace ComicChronology
 {
     internal static class DBConnection
     {
-        static private string _dbName = "ComicChronologyDB.sqlite";
-        static private string _connectionString = $"Data Source={_dbName};Version=3;";
+        static private readonly string _dbName = "ComicChronologyDB.sqlite";
+        static private readonly string _connectionString = $"Data Source={_dbName};Version=3;";
         public static void InitDB()
         {
             if (!File.Exists(_dbName))
@@ -53,7 +53,7 @@ namespace ComicChronology
                             ('monthly'),
                             ('twice a month'),
                             ('weekly')";
-            ExecuteNonQuery(_connectionString, sql);
+            ExecuteNonQuery(sql);
         }
 
         private static void CreateIssuesTable()
@@ -66,7 +66,7 @@ namespace ComicChronology
                             isRead BOOLEAN NOT NULL,
                             FOREIGN KEY (seriesId) REFERENCES Series(id)
                             );";
-            ExecuteNonQuery(_connectionString, sql);
+            ExecuteNonQuery(sql);
         }
 
         private static void CreateSeriesTable()
@@ -77,7 +77,7 @@ namespace ComicChronology
                     periodicityId INTEGER NOT NULL,
                     FOREIGN KEY (periodicityId) REFERENCES PeriodicityType (id)
                     );";
-            ExecuteNonQuery(_connectionString, sql);
+            ExecuteNonQuery(sql);
         }
 
         private static void CreatePeriodicityTypeTable()
@@ -86,12 +86,12 @@ namespace ComicChronology
                     id INTEGER PRIMARY KEY,
                     name TEXT NOT NULL
                     );";
-            ExecuteNonQuery(_connectionString, sql);
+            ExecuteNonQuery(sql);
         }
 
-        private static void ExecuteNonQuery(string connectionString, string sql)
+        private static void ExecuteNonQuery(string sql)
         {
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
                 using (SQLiteCommand command = new SQLiteCommand(sql, connection))

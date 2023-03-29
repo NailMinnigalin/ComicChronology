@@ -28,13 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.ComicChronologyLB = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(783, 35);
+            this.flowLayoutPanel1.TabIndex = 0;
+            // 
+            // ComicChronologyLB
+            // 
+            this.ComicChronologyLB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ComicChronologyLB.FormattingEnabled = true;
+            this.ComicChronologyLB.ItemHeight = 15;
+            this.ComicChronologyLB.Location = new System.Drawing.Point(0, 38);
+            this.ComicChronologyLB.Margin = new System.Windows.Forms.Padding(0);
+            this.ComicChronologyLB.Name = "ComicChronologyLB";
+            this.ComicChronologyLB.Size = new System.Drawing.Size(783, 349);
+            this.ComicChronologyLB.TabIndex = 1;
             // 
             // mainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(784, 399);
+            this.Controls.Add(this.ComicChronologyLB);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "mainWindow";
             this.Text = "ComicChronology";
             this.Load += new System.EventHandler(this.mainWindow_Load);
@@ -43,5 +68,8 @@
         }
 
         #endregion
+
+        private FlowLayoutPanel flowLayoutPanel1;
+        private ListBox ComicChronologyLB;
     }
 }
