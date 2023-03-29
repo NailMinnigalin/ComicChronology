@@ -35,12 +35,12 @@
             this.ComicsPage = new System.Windows.Forms.TabPage();
             this.comicsPageSplitContainer = new System.Windows.Forms.SplitContainer();
             this.comicsDataGridView = new System.Windows.Forms.DataGridView();
-            this.comicsDetailSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.comicPeriodComboBox = new System.Windows.Forms.ComboBox();
-            this.comicNameTextBox = new System.Windows.Forms.TextBox();
             this.comicsListContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.comicsDetailSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.comicPeriodComboBox = new System.Windows.Forms.ComboBox();
+            this.comicNameTextBox = new System.Windows.Forms.TextBox();
             this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl1.SuspendLayout();
             this.ComicsPage.SuspendLayout();
@@ -49,10 +49,10 @@
             this.comicsPageSplitContainer.Panel2.SuspendLayout();
             this.comicsPageSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comicsDataGridView)).BeginInit();
+            this.comicsListContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comicsDetailSplitContainer)).BeginInit();
             this.comicsDetailSplitContainer.Panel1.SuspendLayout();
             this.comicsDetailSplitContainer.SuspendLayout();
-            this.comicsListContextMenuStrip.SuspendLayout();
             this.mainTableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -123,6 +123,9 @@
             // 
             // comicsDataGridView
             // 
+            this.comicsDataGridView.AllowUserToAddRows = false;
+            this.comicsDataGridView.AllowUserToDeleteRows = false;
+            this.comicsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.comicsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.comicsDataGridView.ContextMenuStrip = this.comicsListContextMenuStrip;
             this.comicsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -131,8 +134,30 @@
             this.comicsDataGridView.Name = "comicsDataGridView";
             this.comicsDataGridView.ReadOnly = true;
             this.comicsDataGridView.RowTemplate.Height = 25;
+            this.comicsDataGridView.ShowEditingIcon = false;
             this.comicsDataGridView.Size = new System.Drawing.Size(354, 352);
             this.comicsDataGridView.TabIndex = 0;
+            // 
+            // comicsListContextMenuStrip
+            // 
+            this.comicsListContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+            this.comicsListContextMenuStrip.Name = "comicsListContextMenuStrip";
+            this.comicsListContextMenuStrip.Size = new System.Drawing.Size(108, 48);
+            // 
+            // addToolStripMenuItem
+            // 
+            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.addToolStripMenuItem.Text = "Add";
+            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
             // 
             // comicsDetailSplitContainer
             // 
@@ -167,27 +192,6 @@
             this.comicNameTextBox.TabIndex = 0;
             this.comicNameTextBox.Visible = false;
             // 
-            // comicsListContextMenuStrip
-            // 
-            this.comicsListContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addToolStripMenuItem,
-            this.deleteToolStripMenuItem});
-            this.comicsListContextMenuStrip.Name = "comicsListContextMenuStrip";
-            this.comicsListContextMenuStrip.Size = new System.Drawing.Size(108, 48);
-            // 
-            // addToolStripMenuItem
-            // 
-            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.addToolStripMenuItem.Text = "Add";
-            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            // 
             // mainTableLayoutPanel
             // 
             this.mainTableLayoutPanel.BackColor = System.Drawing.SystemColors.Control;
@@ -221,11 +225,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.comicsPageSplitContainer)).EndInit();
             this.comicsPageSplitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.comicsDataGridView)).EndInit();
+            this.comicsListContextMenuStrip.ResumeLayout(false);
             this.comicsDetailSplitContainer.Panel1.ResumeLayout(false);
             this.comicsDetailSplitContainer.Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comicsDetailSplitContainer)).EndInit();
             this.comicsDetailSplitContainer.ResumeLayout(false);
-            this.comicsListContextMenuStrip.ResumeLayout(false);
             this.mainTableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 

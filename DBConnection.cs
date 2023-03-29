@@ -27,6 +27,32 @@ namespace ComicChronology
             return GetSeriesMaxId();
         }
 
+        public static Dictionary<int, string> GetAllSeries()
+        {
+            Dictionary<int, string> series = new Dictionary<int, string>();
+
+            string sql = "SELECT id, title FROM Series";
+            using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand command = new SQLiteCommand(sql, connection))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int id = reader.GetInt32(0);
+                            string name = reader.GetString(1);
+
+                            series[id] = name;
+                        }
+                    }
+                }
+            }
+
+            return series;
+        }
+
         private static int GetSeriesMaxId()
         {
             string sql = "SELECT MAX(id) FROM Series";
