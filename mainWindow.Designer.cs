@@ -144,20 +144,22 @@
             this.addToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.comicsListContextMenuStrip.Name = "comicsListContextMenuStrip";
-            this.comicsListContextMenuStrip.Size = new System.Drawing.Size(108, 48);
+            this.comicsListContextMenuStrip.Size = new System.Drawing.Size(181, 70);
+            this.comicsListContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.comicsListContextMenuStrip_Opening);
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // comicsDetailSplitContainer
             // 

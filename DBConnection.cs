@@ -53,6 +53,12 @@ namespace ComicChronology
             return series;
         }
 
+        public static void DeleteSeries(int id)
+        {
+            string sql = "DELETE FROM series WHERE id = @sId;";
+            ExecuteNonQuery(sql, new Dictionary<string, object> { { "@sId", id} });
+        }
+
         private static int GetSeriesMaxId()
         {
             string sql = "SELECT MAX(id) FROM Series";

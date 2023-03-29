@@ -28,5 +28,23 @@ namespace ComicChronology
             series = DBConnection.GetAllSeries();
             comicsDataGridView.DataSource = Utils.DictionaryToDataTable(series);
         }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (comicsDataGridView.CurrentRow == null)
+                return;
+            
+            int seriesId = int.Parse(comicsDataGridView.CurrentRow.Cells[0].Value.ToString());
+            DBConnection.DeleteSeries(seriesId);
+            UpdateSeriesTable();
+        }
+
+        private void comicsListContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (comicsDataGridView.CurrentRow == null)
+                deleteToolStripMenuItem.Enabled = false;
+            else
+                deleteToolStripMenuItem.Enabled = true;
+        }
     }
 }
