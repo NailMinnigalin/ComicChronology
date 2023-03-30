@@ -27,11 +27,44 @@ namespace ComicChronology
             return GetSeriesMaxId();
         }
 
-        public static Dictionary<int, string> GetAllSeries()
+        public static void DeleteSeries(int id)
         {
-            Dictionary<int, string> series = new Dictionary<int, string>();
+            string sql = "DELETE FROM series WHERE id = @sId;";
+            ExecuteNonQuery(sql, new Dictionary<string, object> { { "@sId", id} });
+        }
 
-            string sql = "SELECT id, title FROM Series";
+        public static Series? GetSeries(int id)
+        {
+            string sql = "SELECT * FROM series WHERE id = @sId";
+            Series? series = null;
+
+            using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand command = new SQLiteCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@sId", id);
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read() && !reader.IsDBNull(0))
+                        {
+                            int sId = reader.GetInt32(0);
+                            string titles = reader.GetString(1);
+                            int periodicityId = reader.GetInt32(2);
+                            series = new Series(sId, titles, periodicityId);
+                        }
+                    }
+                }
+            }
+
+            return series;
+        }
+
+        public static List<Series> GetAllSeries()
+        {
+            string sql = "SELECT * FROM Series";
+            List<Series> seriesList = new List<Series>();
+
             using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
@@ -41,22 +74,17 @@ namespace ComicChronology
                     {
                         while (reader.Read())
                         {
-                            int id = reader.GetInt32(0);
-                            string name = reader.GetString(1);
+                            int id = Convert.ToInt32(reader["id"]);
+                            string title = reader["title"].ToString();
+                            int periodicityId = Convert.ToInt32(reader["periodicityId"]);
 
-                            series[id] = name;
+                            seriesList.Add(new Series(id, title, periodicityId));
                         }
                     }
                 }
             }
 
-            return series;
-        }
-
-        public static void DeleteSeries(int id)
-        {
-            string sql = "DELETE FROM series WHERE id = @sId;";
-            ExecuteNonQuery(sql, new Dictionary<string, object> { { "@sId", id} });
+            return seriesList;
         }
 
         private static int GetSeriesMaxId()

@@ -19,29 +19,30 @@ namespace ComicChronology
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int newComicsId = DBConnection.CreateNewSeries();
+            DBConnection.CreateNewSeries();
             UpdateSeriesTable();
         }
 
         private void UpdateSeriesTable()
         {
-            series = DBConnection.GetAllSeries();
-            comicsDataGridView.DataSource = Utils.DictionaryToDataTable(series);
+            List<Series> allSeries = DBConnection.GetAllSeries();
+            seriesListBox.Items.Clear();
+            foreach (Series series in allSeries)
+            {
+                seriesListBox.Items.Add(series);
+            }
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (comicsDataGridView.CurrentRow == null)
-                return;
-            
-            int seriesId = int.Parse(comicsDataGridView.CurrentRow.Cells[0].Value.ToString());
-            DBConnection.DeleteSeries(seriesId);
+            Series selectedSeries = (Series)seriesListBox.SelectedItem;
+            DBConnection.DeleteSeries(selectedSeries.Id);
             UpdateSeriesTable();
         }
 
         private void comicsListContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (comicsDataGridView.CurrentRow == null)
+            if (seriesListBox.SelectedItem == null)
                 deleteToolStripMenuItem.Enabled = false;
             else
                 deleteToolStripMenuItem.Enabled = true;
