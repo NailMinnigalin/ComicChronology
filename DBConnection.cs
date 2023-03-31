@@ -139,6 +139,19 @@ namespace ComicChronology
             return periodicityTypeList;
         }
 
+        public static void UpdateSeries(int id, string title, int periodicityId)
+        {
+            string sql = "UPDATE Series SET title = @Title, periodicityId = @PeriodicityId WHERE id = @Id";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                {"@Title", title},
+                {"@PeriodicityId", periodicityId},
+                {"@Id", id}
+            };
+            ExecuteNonQuery(sql, parameters);
+        }
+
+
         private static int GetSeriesMaxId()
         {
             string sql = "SELECT MAX(id) FROM Series";

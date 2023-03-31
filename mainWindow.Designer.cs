@@ -39,7 +39,7 @@
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comicsDetailSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.saveButton = new System.Windows.Forms.Button();
+            this.seriesDataSaveButton = new System.Windows.Forms.Button();
             this.seriesPeriodicityComboBox = new System.Windows.Forms.ComboBox();
             this.seriesTitleTextBox = new System.Windows.Forms.TextBox();
             this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -166,22 +166,23 @@
             // 
             // comicsDetailSplitContainer.Panel1
             // 
-            this.comicsDetailSplitContainer.Panel1.Controls.Add(this.saveButton);
+            this.comicsDetailSplitContainer.Panel1.Controls.Add(this.seriesDataSaveButton);
             this.comicsDetailSplitContainer.Panel1.Controls.Add(this.seriesPeriodicityComboBox);
             this.comicsDetailSplitContainer.Panel1.Controls.Add(this.seriesTitleTextBox);
             this.comicsDetailSplitContainer.Size = new System.Drawing.Size(412, 352);
             this.comicsDetailSplitContainer.SplitterDistance = 88;
             this.comicsDetailSplitContainer.TabIndex = 0;
             // 
-            // saveButton
+            // seriesDataSaveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(328, 61);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(75, 23);
-            this.saveButton.TabIndex = 2;
-            this.saveButton.Text = "Save";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Visible = false;
+            this.seriesDataSaveButton.Location = new System.Drawing.Point(328, 61);
+            this.seriesDataSaveButton.Name = "seriesDataSaveButton";
+            this.seriesDataSaveButton.Size = new System.Drawing.Size(75, 23);
+            this.seriesDataSaveButton.TabIndex = 2;
+            this.seriesDataSaveButton.Text = "Save";
+            this.seriesDataSaveButton.UseVisualStyleBackColor = true;
+            this.seriesDataSaveButton.Visible = false;
+            this.seriesDataSaveButton.Click += new System.EventHandler(this.seriesDataSaveButton_Click);
             // 
             // seriesPeriodicityComboBox
             // 
@@ -256,7 +257,7 @@
         private SplitContainer comicsDetailSplitContainer;
         private TextBox seriesTitleTextBox;
         private ComboBox seriesPeriodicityComboBox;
-        private Button saveButton;
+        private Button seriesDataSaveButton;
         private ListBox seriesListBox;
     }
 }
