@@ -4,7 +4,7 @@ namespace ComicChronology
 {
     public partial class mainWindow : Form
     {
-        Dictionary<int, string> series;
+        Series _selectedSeries;
 
         public mainWindow()
         {
@@ -15,8 +15,18 @@ namespace ComicChronology
         {
             DBConnection.InitDB();
             UpdateSeriesTable();
+            FillComicPeriodicityComboBox();
         }
 
+        private void FillComicPeriodicityComboBox()
+        {
+            List<PeriodicityType> list = DBConnection.GetAllPeriodicityType();
+            seriesPeriodicityComboBox.Items.Clear();
+            foreach (PeriodicityType type in list)
+            {
+                seriesPeriodicityComboBox.Items.Add(type);
+            }
+        }
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int newSeriesId = DBConnection.CreateNewSeries();
@@ -55,6 +65,35 @@ namespace ComicChronology
                 deleteToolStripMenuItem.Enabled = false;
             else
                 deleteToolStripMenuItem.Enabled = true;
+        }
+
+        private void seriesListBox_DoubleClick(object sender, EventArgs e)
+        {
+            _selectedSeries = (Series)seriesListBox.SelectedItem;
+            
+            seriesTitleTextBox.Text = _selectedSeries.Title;
+            seriesTitleTextBox.Visible = true;
+
+            SelectPeriodicityInSeriesPeriodicityComboBox(DBConnection.GetPeriodicityType(_selectedSeries.PeriodicityTypeId));
+            seriesPeriodicityComboBox.Visible = true;
+        }
+
+        private void SelectPeriodicityInSeriesPeriodicityComboBox(PeriodicityType? periodicity)
+        {
+            if (periodicity == null)
+            {
+                seriesPeriodicityComboBox.SelectedItem = null;
+                return;
+            }
+            
+            foreach (PeriodicityType item in seriesPeriodicityComboBox.Items)
+            {
+                if (item.type == periodicity.type)
+                {
+                    seriesPeriodicityComboBox.SelectedItem = item;
+                    return;
+                }
+            }
         }
     }
 }

@@ -60,6 +60,32 @@ namespace ComicChronology
             return series;
         }
 
+        public static PeriodicityType? GetPeriodicityType(int id)
+        {
+            string sql = "SELECT * FROM PeriodicityType WHERE id = @sId";
+            PeriodicityType? periodicityType = null;
+
+            using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand command = new SQLiteCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@sId", id);
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read() && !reader.IsDBNull(0))
+                        {
+                            int pId = reader.GetInt32(0);
+                            string name = reader.GetString(1);
+                            periodicityType = new PeriodicityType(pId, name);
+                        }
+                    }
+                }
+            }
+
+            return periodicityType;
+        }
+
         public static List<Series> GetAllSeries()
         {
             string sql = "SELECT * FROM Series";
@@ -85,6 +111,32 @@ namespace ComicChronology
             }
 
             return seriesList;
+        }
+
+        public static List<PeriodicityType> GetAllPeriodicityType()
+        {
+            string sql = "SELECT * FROM PeriodicityType";
+            List<PeriodicityType> periodicityTypeList = new List<PeriodicityType>();
+
+            using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand command = new SQLiteCommand(sql, connection))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int id = Convert.ToInt32(reader["id"]);
+                            string name = reader["name"].ToString();
+
+                            periodicityTypeList.Add(new PeriodicityType(id, name));
+                        }
+                    }
+                }
+            }
+
+            return periodicityTypeList;
         }
 
         private static int GetSeriesMaxId()

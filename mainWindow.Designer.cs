@@ -35,13 +35,13 @@
             this.ComicsPage = new System.Windows.Forms.TabPage();
             this.comicsPageSplitContainer = new System.Windows.Forms.SplitContainer();
             this.seriesListBox = new System.Windows.Forms.ListBox();
-            this.comicsDetailSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.saveButton = new System.Windows.Forms.Button();
-            this.comicPeriodComboBox = new System.Windows.Forms.ComboBox();
-            this.comicNameTextBox = new System.Windows.Forms.TextBox();
             this.comicsListContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.comicsDetailSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.saveButton = new System.Windows.Forms.Button();
+            this.seriesPeriodicityComboBox = new System.Windows.Forms.ComboBox();
+            this.seriesTitleTextBox = new System.Windows.Forms.TextBox();
             this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl1.SuspendLayout();
             this.ComicsPage.SuspendLayout();
@@ -49,10 +49,10 @@
             this.comicsPageSplitContainer.Panel1.SuspendLayout();
             this.comicsPageSplitContainer.Panel2.SuspendLayout();
             this.comicsPageSplitContainer.SuspendLayout();
+            this.comicsListContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comicsDetailSplitContainer)).BeginInit();
             this.comicsDetailSplitContainer.Panel1.SuspendLayout();
             this.comicsDetailSplitContainer.SuspendLayout();
-            this.comicsListContextMenuStrip.SuspendLayout();
             this.mainTableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,50 +131,7 @@
             this.seriesListBox.Name = "seriesListBox";
             this.seriesListBox.Size = new System.Drawing.Size(354, 352);
             this.seriesListBox.TabIndex = 0;
-            // 
-            // comicsDetailSplitContainer
-            // 
-            this.comicsDetailSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comicsDetailSplitContainer.Location = new System.Drawing.Point(0, 0);
-            this.comicsDetailSplitContainer.Margin = new System.Windows.Forms.Padding(0);
-            this.comicsDetailSplitContainer.Name = "comicsDetailSplitContainer";
-            this.comicsDetailSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // comicsDetailSplitContainer.Panel1
-            // 
-            this.comicsDetailSplitContainer.Panel1.Controls.Add(this.saveButton);
-            this.comicsDetailSplitContainer.Panel1.Controls.Add(this.comicPeriodComboBox);
-            this.comicsDetailSplitContainer.Panel1.Controls.Add(this.comicNameTextBox);
-            this.comicsDetailSplitContainer.Size = new System.Drawing.Size(412, 352);
-            this.comicsDetailSplitContainer.SplitterDistance = 88;
-            this.comicsDetailSplitContainer.TabIndex = 0;
-            // 
-            // saveButton
-            // 
-            this.saveButton.Location = new System.Drawing.Point(328, 61);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(75, 23);
-            this.saveButton.TabIndex = 2;
-            this.saveButton.Text = "Save";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Visible = false;
-            // 
-            // comicPeriodComboBox
-            // 
-            this.comicPeriodComboBox.FormattingEnabled = true;
-            this.comicPeriodComboBox.Location = new System.Drawing.Point(3, 32);
-            this.comicPeriodComboBox.Name = "comicPeriodComboBox";
-            this.comicPeriodComboBox.Size = new System.Drawing.Size(400, 23);
-            this.comicPeriodComboBox.TabIndex = 1;
-            this.comicPeriodComboBox.Visible = false;
-            // 
-            // comicNameTextBox
-            // 
-            this.comicNameTextBox.Location = new System.Drawing.Point(3, 3);
-            this.comicNameTextBox.Name = "comicNameTextBox";
-            this.comicNameTextBox.Size = new System.Drawing.Size(400, 23);
-            this.comicNameTextBox.TabIndex = 0;
-            this.comicNameTextBox.Visible = false;
+            this.seriesListBox.DoubleClick += new System.EventHandler(this.seriesListBox_DoubleClick);
             // 
             // comicsListContextMenuStrip
             // 
@@ -182,7 +139,7 @@
             this.addToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.comicsListContextMenuStrip.Name = "comicsListContextMenuStrip";
-            this.comicsListContextMenuStrip.Size = new System.Drawing.Size(181, 70);
+            this.comicsListContextMenuStrip.Size = new System.Drawing.Size(108, 48);
             this.comicsListContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.comicsListContextMenuStrip_Opening);
             // 
             // addToolStripMenuItem
@@ -198,6 +155,50 @@
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // comicsDetailSplitContainer
+            // 
+            this.comicsDetailSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comicsDetailSplitContainer.Location = new System.Drawing.Point(0, 0);
+            this.comicsDetailSplitContainer.Margin = new System.Windows.Forms.Padding(0);
+            this.comicsDetailSplitContainer.Name = "comicsDetailSplitContainer";
+            this.comicsDetailSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // comicsDetailSplitContainer.Panel1
+            // 
+            this.comicsDetailSplitContainer.Panel1.Controls.Add(this.saveButton);
+            this.comicsDetailSplitContainer.Panel1.Controls.Add(this.seriesPeriodicityComboBox);
+            this.comicsDetailSplitContainer.Panel1.Controls.Add(this.seriesTitleTextBox);
+            this.comicsDetailSplitContainer.Size = new System.Drawing.Size(412, 352);
+            this.comicsDetailSplitContainer.SplitterDistance = 88;
+            this.comicsDetailSplitContainer.TabIndex = 0;
+            // 
+            // saveButton
+            // 
+            this.saveButton.Location = new System.Drawing.Point(328, 61);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(75, 23);
+            this.saveButton.TabIndex = 2;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Visible = false;
+            // 
+            // seriesPeriodicityComboBox
+            // 
+            this.seriesPeriodicityComboBox.FormattingEnabled = true;
+            this.seriesPeriodicityComboBox.Location = new System.Drawing.Point(3, 32);
+            this.seriesPeriodicityComboBox.Name = "seriesPeriodicityComboBox";
+            this.seriesPeriodicityComboBox.Size = new System.Drawing.Size(400, 23);
+            this.seriesPeriodicityComboBox.TabIndex = 1;
+            this.seriesPeriodicityComboBox.Visible = false;
+            // 
+            // seriesTitleTextBox
+            // 
+            this.seriesTitleTextBox.Location = new System.Drawing.Point(3, 3);
+            this.seriesTitleTextBox.Name = "seriesTitleTextBox";
+            this.seriesTitleTextBox.Size = new System.Drawing.Size(400, 23);
+            this.seriesTitleTextBox.TabIndex = 0;
+            this.seriesTitleTextBox.Visible = false;
             // 
             // mainTableLayoutPanel
             // 
@@ -231,11 +232,11 @@
             this.comicsPageSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.comicsPageSplitContainer)).EndInit();
             this.comicsPageSplitContainer.ResumeLayout(false);
+            this.comicsListContextMenuStrip.ResumeLayout(false);
             this.comicsDetailSplitContainer.Panel1.ResumeLayout(false);
             this.comicsDetailSplitContainer.Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comicsDetailSplitContainer)).EndInit();
             this.comicsDetailSplitContainer.ResumeLayout(false);
-            this.comicsListContextMenuStrip.ResumeLayout(false);
             this.mainTableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -253,8 +254,8 @@
         private ToolStripMenuItem deleteToolStripMenuItem;
         private TableLayoutPanel mainTableLayoutPanel;
         private SplitContainer comicsDetailSplitContainer;
-        private TextBox comicNameTextBox;
-        private ComboBox comicPeriodComboBox;
+        private TextBox seriesTitleTextBox;
+        private ComboBox seriesPeriodicityComboBox;
         private Button saveButton;
         private ListBox seriesListBox;
     }
