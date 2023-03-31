@@ -19,8 +19,17 @@ namespace ComicChronology
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DBConnection.CreateNewSeries();
+            int newSeriesId = DBConnection.CreateNewSeries();
             UpdateSeriesTable();
+            SelectSeriesInListBox(newSeriesId);
+        }
+        private void SelectSeriesInListBox(int sId)
+        {
+            foreach (Series series in seriesListBox.Items)
+            {
+                if (series.Id == sId)
+                    seriesListBox.SelectedItem = series;
+            }
         }
 
         private void UpdateSeriesTable()
