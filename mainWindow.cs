@@ -32,6 +32,7 @@ namespace ComicChronology
             int newSeriesId = DBConnection.CreateNewSeries();
             UpdateSeriesTable();
             SelectSeriesInListBox(newSeriesId);
+            seriesListBox_DoubleClick(sender, e);
         }
         private void SelectSeriesInListBox(int sId)
         {
@@ -57,9 +58,36 @@ namespace ComicChronology
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (seriesListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a series to delete.", "No Series Selected",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Series selectedSeries = (Series)seriesListBox.SelectedItem;
-            DBConnection.DeleteSeries(selectedSeries.Id);
-            UpdateSeriesTable();
+            if (MessageBox.Show("Are you sure you want to delete this series?", "Delete Confirmation",
+                    MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+               
+            if (selectedSeries.Id == _selectedSeries.Id)
+            {
+                seriesTitleTextBox.Visible = false;
+                seriesPeriodicityComboBox.Visible = false;
+                seriesDataSaveButton.Visible = false;
+            }
+
+            try
+            {
+                DBConnection.DeleteSeries(selectedSeries.Id);
+                UpdateSeriesTable();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while deleting the series: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void comicsListContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
