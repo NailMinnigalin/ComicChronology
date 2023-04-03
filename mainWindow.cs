@@ -69,13 +69,9 @@ namespace ComicChronology
             if (MessageBox.Show("Are you sure you want to delete this series?", "Delete Confirmation",
                     MessageBoxButtons.YesNo) != DialogResult.Yes)
                 return;
-               
+
             if (selectedSeries.Id == _selectedSeries.Id)
-            {
-                seriesTitleTextBox.Visible = false;
-                seriesPeriodicityComboBox.Visible = false;
-                seriesDataSaveButton.Visible = false;
-            }
+                SetVisibilitySeriesDetailForms(false);
 
             try
             {
@@ -103,12 +99,18 @@ namespace ComicChronology
             _selectedSeries = (Series)seriesListBox.SelectedItem;
             
             seriesTitleTextBox.Text = _selectedSeries.Title;
-            seriesTitleTextBox.Visible = true;
-
             SelectPeriodicityInSeriesPeriodicityComboBox(DBConnection.GetPeriodicityType(_selectedSeries.PeriodicityTypeId));
-            seriesPeriodicityComboBox.Visible = true;
+            numberIssuesLabel.Text = "Number of issues: " + DBConnection.GetNumberIssues(_selectedSeries.Id).ToString();
 
-            seriesDataSaveButton.Visible = true;
+            SetVisibilitySeriesDetailForms(true);
+        }
+
+        private void SetVisibilitySeriesDetailForms(bool visibility)
+        {
+            seriesTitleTextBox.Visible = visibility;
+            seriesPeriodicityComboBox.Visible = visibility;
+            seriesDataSaveButton.Visible = visibility;
+            numberIssuesLabel.Visible = visibility;
         }
 
         private void SelectPeriodicityInSeriesPeriodicityComboBox(PeriodicityType? periodicity)
@@ -135,6 +137,36 @@ namespace ComicChronology
             int newPeriodicityId = ((PeriodicityType)seriesPeriodicityComboBox.SelectedItem).Id;
             DBConnection.UpdateSeries(_selectedSeries.Id, newSeriesTitle, newPeriodicityId);
             UpdateSeriesTable();
+        }
+
+        private void setNumberOfIssuesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int numberIssues = DBConnection.GetNumberIssues(_selectedSeries.Id);
+            if (numberIssues > 0 && MessageBox.Show("Are you sure you want to set number of issues for this series? This will delete all existing ones",
+                "Delete Confirmation", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+            using (InputForm inputForm = new InputForm())
+            {
+                int? enteredNumberNullable = inputForm.GetEnteredNumber("Number of issues", "Enter number of issues");
+
+                if (enteredNumberNullable.HasValue)
+                {
+                    SetNumberIssues(_selectedSeries.Id, enteredNumberNullable.Value);
+                }
+            }
+        }
+
+        private void SetNumberIssues(int seriesId, int numberIssues)
+        {
+            DBConnection.ClearIssues(seriesId);
+            progressBar1.Minimum = 0;
+            progressBar1.Maximum = numberIssues + 1;
+            progressBar1.Value = 0;
+            for (int i = 1; i <= numberIssues; i++)
+            {
+                DBConnection.InsertIssue(seriesId, i, DateTime.MinValue, false);
+                progressBar1.Value = i;
+            }
         }
     }
 }

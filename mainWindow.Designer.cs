@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.BottomPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.PlanPage = new System.Windows.Forms.TabPage();
             this.ComicsPage = new System.Windows.Forms.TabPage();
@@ -42,7 +43,12 @@
             this.seriesDataSaveButton = new System.Windows.Forms.Button();
             this.seriesPeriodicityComboBox = new System.Windows.Forms.ComboBox();
             this.seriesTitleTextBox = new System.Windows.Forms.TextBox();
+            this.addIssuesContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.setNumberOfIssuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNewIssuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.numberIssuesLabel = new System.Windows.Forms.Label();
             this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.BottomPanel.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.ComicsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comicsPageSplitContainer)).BeginInit();
@@ -52,18 +58,28 @@
             this.comicsListContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comicsDetailSplitContainer)).BeginInit();
             this.comicsDetailSplitContainer.Panel1.SuspendLayout();
+            this.comicsDetailSplitContainer.Panel2.SuspendLayout();
             this.comicsDetailSplitContainer.SuspendLayout();
+            this.addIssuesContextMenuStrip.SuspendLayout();
             this.mainTableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // BottomPanel
             // 
+            this.BottomPanel.Controls.Add(this.progressBar1);
             this.BottomPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BottomPanel.Location = new System.Drawing.Point(0, 386);
             this.BottomPanel.Margin = new System.Windows.Forms.Padding(0);
             this.BottomPanel.Name = "BottomPanel";
             this.BottomPanel.Size = new System.Drawing.Size(784, 25);
             this.BottomPanel.TabIndex = 0;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(3, 3);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(781, 23);
+            this.progressBar1.TabIndex = 0;
             // 
             // tabControl1
             // 
@@ -139,20 +155,21 @@
             this.addToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.comicsListContextMenuStrip.Name = "comicsListContextMenuStrip";
-            this.comicsListContextMenuStrip.Size = new System.Drawing.Size(108, 48);
+            this.comicsListContextMenuStrip.ShowImageMargin = false;
+            this.comicsListContextMenuStrip.Size = new System.Drawing.Size(83, 48);
             this.comicsListContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.comicsListContextMenuStrip_Opening);
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(82, 22);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(82, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -169,6 +186,11 @@
             this.comicsDetailSplitContainer.Panel1.Controls.Add(this.seriesDataSaveButton);
             this.comicsDetailSplitContainer.Panel1.Controls.Add(this.seriesPeriodicityComboBox);
             this.comicsDetailSplitContainer.Panel1.Controls.Add(this.seriesTitleTextBox);
+            // 
+            // comicsDetailSplitContainer.Panel2
+            // 
+            this.comicsDetailSplitContainer.Panel2.ContextMenuStrip = this.addIssuesContextMenuStrip;
+            this.comicsDetailSplitContainer.Panel2.Controls.Add(this.numberIssuesLabel);
             this.comicsDetailSplitContainer.Size = new System.Drawing.Size(412, 352);
             this.comicsDetailSplitContainer.SplitterDistance = 88;
             this.comicsDetailSplitContainer.TabIndex = 0;
@@ -201,6 +223,38 @@
             this.seriesTitleTextBox.TabIndex = 0;
             this.seriesTitleTextBox.Visible = false;
             // 
+            // addIssuesContextMenuStrip
+            // 
+            this.addIssuesContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.setNumberOfIssuesToolStripMenuItem,
+            this.addNewIssuesToolStripMenuItem});
+            this.addIssuesContextMenuStrip.Name = "addIssuesContextMenuStrip";
+            this.addIssuesContextMenuStrip.ShowImageMargin = false;
+            this.addIssuesContextMenuStrip.Size = new System.Drawing.Size(159, 48);
+            // 
+            // setNumberOfIssuesToolStripMenuItem
+            // 
+            this.setNumberOfIssuesToolStripMenuItem.Name = "setNumberOfIssuesToolStripMenuItem";
+            this.setNumberOfIssuesToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.setNumberOfIssuesToolStripMenuItem.Text = "Set number of issues";
+            this.setNumberOfIssuesToolStripMenuItem.Click += new System.EventHandler(this.setNumberOfIssuesToolStripMenuItem_Click);
+            // 
+            // addNewIssuesToolStripMenuItem
+            // 
+            this.addNewIssuesToolStripMenuItem.Name = "addNewIssuesToolStripMenuItem";
+            this.addNewIssuesToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.addNewIssuesToolStripMenuItem.Text = "Add new issues";
+            // 
+            // numberIssuesLabel
+            // 
+            this.numberIssuesLabel.AutoSize = true;
+            this.numberIssuesLabel.Location = new System.Drawing.Point(2, 0);
+            this.numberIssuesLabel.Name = "numberIssuesLabel";
+            this.numberIssuesLabel.Size = new System.Drawing.Size(105, 15);
+            this.numberIssuesLabel.TabIndex = 0;
+            this.numberIssuesLabel.Text = "Number of issues: ";
+            this.numberIssuesLabel.Visible = false;
+            // 
             // mainTableLayoutPanel
             // 
             this.mainTableLayoutPanel.BackColor = System.Drawing.SystemColors.Control;
@@ -227,6 +281,7 @@
             this.Name = "mainWindow";
             this.Text = "ComicChronology";
             this.Load += new System.EventHandler(this.mainWindow_Load);
+            this.BottomPanel.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.ComicsPage.ResumeLayout(false);
             this.comicsPageSplitContainer.Panel1.ResumeLayout(false);
@@ -236,8 +291,11 @@
             this.comicsListContextMenuStrip.ResumeLayout(false);
             this.comicsDetailSplitContainer.Panel1.ResumeLayout(false);
             this.comicsDetailSplitContainer.Panel1.PerformLayout();
+            this.comicsDetailSplitContainer.Panel2.ResumeLayout(false);
+            this.comicsDetailSplitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comicsDetailSplitContainer)).EndInit();
             this.comicsDetailSplitContainer.ResumeLayout(false);
+            this.addIssuesContextMenuStrip.ResumeLayout(false);
             this.mainTableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -259,5 +317,10 @@
         private ComboBox seriesPeriodicityComboBox;
         private Button seriesDataSaveButton;
         private ListBox seriesListBox;
+        private Label numberIssuesLabel;
+        private ContextMenuStrip addIssuesContextMenuStrip;
+        private ToolStripMenuItem setNumberOfIssuesToolStripMenuItem;
+        private ToolStripMenuItem addNewIssuesToolStripMenuItem;
+        private ProgressBar progressBar1;
     }
 }

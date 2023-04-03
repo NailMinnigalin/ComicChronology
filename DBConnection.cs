@@ -151,6 +151,47 @@ namespace ComicChronology
             ExecuteNonQuery(sql, parameters);
         }
 
+        public static int GetNumberIssues(int seriesId)
+        {
+            string sql = "SELECT COUNT(*) FROM Issues WHERE seriesId = @sId";
+            using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand command = new SQLiteCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@sId", seriesId);
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read() && !reader.IsDBNull(0))
+                        {
+                            return reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+
+            return 0;
+        }
+
+        public static void ClearIssues(int seriesId)
+        {
+            string sql = "DELETE FROM Issues WHERE seriesId = @seriesId";
+            ExecuteNonQuery(sql, new Dictionary<string, object> { { "@seriesId", seriesId } });
+        }
+
+        public static void InsertIssue(int seriesId, int issueNumber, DateTime releaseDate, bool isRead)
+        {
+            string sql = "INSERT INTO Issues (seriesId, issue_number, releaseDate, isRead) " +
+                "VALUES (@seriesId, @issueNumber, @releaseDate, @isRead)";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "@seriesId", seriesId },
+                { "@issueNumber", issueNumber },
+                { "@releaseDate", releaseDate },
+                { "@isRead", isRead}
+            };
+            ExecuteNonQuery(sql, parameters);
+        }
 
         private static int GetSeriesMaxId()
         {
